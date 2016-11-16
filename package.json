@@ -1,0 +1,23 @@
+{
+  "name": "asflash",
+  "version": "0.0.2",
+  "description": "Adobe Animate CC TypeScript Bridge",
+  "main": "gfx.ts",
+  "typings": "index.d.ts",
+  "typescript": {
+    "definition": "index.d.ts"
+  },
+  "bin": {
+    "asfl": "cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "dev@gleb.pw",
+  "license": "ISC",
+  "dependencies": {
+    "chokidar": "^1.6.1",
+    "dts-generator": "^2.0.0",
+    "typescript": "^2.0.10"
+  }
+}
