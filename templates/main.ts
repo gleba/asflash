@@ -6,15 +6,20 @@ export interface GfxProp {
     	opacity: number
 }
 
-export class MC {
+export interface MC {
     constructor()
 }
-export interface GfxClip {
-    properties: GfxProp;
+
+export interface GfxOBJ {
+	["id"]
 }
-export namespace GfxClip{
+export interface GfxClip{
     properties:GfxProp
-    start: MC;
+	exportRoot: ()=>MC
 }
 
 declare function require(string): any;
+
+export const clips = {
+	//clips
+}

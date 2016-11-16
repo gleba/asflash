@@ -1,6 +1,6 @@
 {
   "name": "asflash",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Adobe Animate CC TypeScript Bridge",
   "main": "gfx.ts",
   "typings": "index.d.ts",
