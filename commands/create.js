@@ -7,8 +7,6 @@ let projectDir
 module.exports.init = (dir, pDir) => {
     maindir = dir
     projectDir = pDir
-    console.log(projectDir)
-
 }
 
 const cap = function (val) {
@@ -39,7 +37,7 @@ module.exports.run = (target, file) => {
 
     result += template
     fs.writeFileSync(path.join(projectDir, "clips", file), result, 'utf8');
-    console.log(file)
+    console.log("exported:", file)
 }
 
 
@@ -71,5 +69,3 @@ module.exports.generate = () => {
         }
     );
 }
-
-

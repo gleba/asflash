@@ -1,6 +1,6 @@
 {
   "name": "asflash",
-  "version": "0.0.6",
+  "version": "0.1.3",
   "description": "Adobe Animate CC TypeScript Bridge",
   "main": "gfx.ts",
   "typings": "index.d.ts",
@@ -8,7 +8,7 @@
     "definition": "index.d.ts"
   },
   "bin": {
-    "asfl": "cli.js"
+    "asfl": "./.bin/asfl"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

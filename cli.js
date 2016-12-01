@@ -9,9 +9,12 @@ let args = []
 process.argv.forEach((val, index, array) => args.push(val))
 
 let projectDir = path.resolve(dtproject(), "node_modules", "asflash")
+
+
 if (!projectDir) console.error("Project not found")
 else {
-    create.init(path.dirname(args[1]), projectDir)
+    // create.init(path.dirname(args[1]), projectDir)
+    create.init(projectDir, projectDir)
     let command = args[2]
     let param = args[3]
     switch (command) {
