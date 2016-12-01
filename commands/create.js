@@ -11,6 +11,13 @@ module.exports.init = (dir, pDir) => {
 
 }
 
+const cap = function (val) {
+    let ar = val.split("-").map(a => a.charAt(0).toUpperCase() + a.slice(1))
+    ar[0] = ar[0].toLocaleLowerCase()
+    return ar.join("")
+};
+
+
 module.exports.run = (target, file) => {
     let data = fs.readFileSync(
         path.join(target, file), 'utf8'
@@ -45,12 +52,12 @@ module.exports.generate = () => {
             if (f != "cplips") clips.push(f.slice(0, f.length - 3))
         }
     )
-    let exports = clips.map(f => `${f} : require('./clips/${f}') as GfxClip`)
+    let exports = clips.map(f => `${cap(f)} : require('./clips/${f}') as Gfx`)
 
     //template += exports.join("\n")
-    console.log("f:", exports.join(";"))
+    //console.log("f:", exports)
 
-    template = template.replace("//clips", exports.join(";"))
+    template = template.replace("//clips", exports.join(",\n"))
 
     fs.writeFileSync(
         path.join(projectDir, "gfx.ts"),

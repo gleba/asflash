@@ -1,6 +1,6 @@
 {
   "name": "asflash",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "description": "Adobe Animate CC TypeScript Bridge",
   "main": "gfx.ts",
   "typings": "index.d.ts",
@@ -16,6 +16,7 @@
   "author": "dev@gleb.pw",
   "license": "ISC",
   "dependencies": {
+    "@types/createjs": "0.0.29",
     "chokidar": "^1.6.1",
     "dts-generator": "^2.0.0",
     "typescript": "^2.0.10"
