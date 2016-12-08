@@ -39,11 +39,6 @@ function addCentered(o, handleComplete) {
 
             var canvas = document.getElementById(o.canvasID);
             var dpr = window.devicePixelRatio
-            var clip_w = clip.properties.width;
-            var clip_h = clip.properties.height;
-            var window_scale_h = window.innerHeight / clip_h
-            var window_scale_w = window.innerWidth / clip_w
-            var window_scale = Math.min(window_scale_h, window_scale_w)
 
             var exportRoot = new clip[o.exportRoot]()
             var stage = new createjs.Stage(canvas);
@@ -52,6 +47,13 @@ function addCentered(o, handleComplete) {
             window.addEventListener('resize', resizeCanvas);
             resizeCanvas();
             function resizeCanvas() {
+
+                var clip_w = clip.properties.width;
+                var clip_h = clip.properties.height;
+                var window_scale_h = window.innerHeight / clip_h
+                var window_scale_w = window.innerWidth / clip_w
+                var window_scale = Math.min(window_scale_h, window_scale_w)
+
                 canvas.width = window.innerWidth
                 canvas.height = window.innerHeight
 
