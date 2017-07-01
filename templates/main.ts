@@ -70,6 +70,8 @@ export interface Gfx {
     addCentered: (o: InitParam, complete: GfxInitializer)=>void
 }
 
-export const clips = {
+declare interface FlashClips {
     //clips
 }
+
+declare const clips:FlashClips

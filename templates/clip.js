@@ -40,12 +40,7 @@ function addCentered(o, handleComplete) {
             var canvas = document.getElementById(o.canvasID);
             var dpr = window.devicePixelRatio
 
-            var exportRoot = new clip[o.exportRoot]()
-            var stage = new createjs.Stage(canvas);
 
-
-            window.addEventListener('resize', resizeCanvas);
-            resizeCanvas();
             function resizeCanvas() {
 
                 var clip_w = clip.properties.width;
@@ -62,6 +57,14 @@ function addCentered(o, handleComplete) {
                 root.scale = window_scale
                 root.x = exportRoot.x = (canvas.width / 2 - (window_scale * clip_w) / 2) / window_scale
                 root.y = 0
+                if (root.resize) {
+                    root.resize(
+                        {
+                            dh: canvas.height - clip_h * window_scale,
+                            scale: root.scale
+                        }
+                    )
+                }
             }
 
             //if (dpr == 1) {
@@ -72,22 +75,63 @@ function addCentered(o, handleComplete) {
             //} else {
             //    stage.scaleX = window_scale * dpr
             //    stage.scaleY = window_scale * dpr
-            //    canvas.width = clip_w * window_scale * dpr
-            //    canvas.height = clip_h * window_scale * dpr
+            //    canvas.width = clip_w  window_scale  dpr
+            //    canvas.height = clip_h  window_scale  dpr
             //    canvas.style.width = clip_w * window_scale + "px"//
             //    canvas.style.height = clip_h * window_scale + "px"//
             //}
-            stage.addChild(exportRoot);
-            stage.update();
-            createjs.Ticker.setFPS(clip.properties.fps);
-            createjs.Ticker.addEventListener("tick", stage);
-            handleComplete(exportRoot)
+
+
+
+            var exportRoot
+            var stage
+
+            setTimeout(
+                function () {
+                    exportRoot = new clip[o.exportRoot]()
+                    stage = new createjs.Stage(canvas);
+                    window.addEventListener('resize', resizeCanvas);
+                    resizeCanvas();
+                    exportRoot = new clip[o.exportRoot]()
+                    stage = new createjs.Stage(canvas);
+                    resizeCanvas();
+                    stage.addChild(exportRoot);
+                    stage.enableMouseOver();
+                    stage.update();
+                    createjs.Ticker.setFPS(clip.properties.fps);
+                    createjs.Ticker.addEventListener("tick", stage);
+                    createjs.Touch.enable(stage)
+                    handleComplete(exportRoot)
+
+
+                    function clearEvents() {
+                        console.log("clearEvents")
+
+                        stage.removeAllChildren()
+                        stage.clear()
+                        createjs.Ticker.removeAllEventListeners();
+                        createjs.Touch.disable(stage)
+                    }
+
+                    canvas.addEventListener ('DOMNodeRemoved', clearEvents, false);
+                    canvas.addEventListener ('DOMNodeRemovedFromDocument', clearEvents, false);
+                }, 100
+            )
+
+            //stage.addChild(exportRoot);
+            //stage.update();
+            //createjs.Ticker.setFPS(clip.properties.fps);
+            //createjs.Ticker.addEventListener("tick", stage);
+            //handleComplete(exportRoot)
+
 
         }
     )
 }
 
-module.exports = {
+if (!window.clips) window.clips  = {}
+
+window.clips.%clpiname% = {
     source: clip,
     addCentered: addCentered
 }

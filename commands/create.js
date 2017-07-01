@@ -33,6 +33,7 @@ module.exports.run = (target, file) => {
 
     let result = data.slice(1, i)
     let template = fs.readFileSync(path.join(maindir, "templates", "clip.js")) + ""
+     template = template.replace("%clpiname%",cap(file).split(".")[0])
     result = "var flash = " + result + "}"
 
     result += template
@@ -50,7 +51,9 @@ module.exports.generate = () => {
             if (f != "cplips") clips.push(f.slice(0, f.length - 3))
         }
     )
-    let exports = clips.map(f => `${cap(f)} : require('./clips/${f}') as Gfx`)
+    let exports = clips.map(f => `${cap(f)} : Gfx`)
+    console.log(exports)
+
 
     //template += exports.join("\n")
     //console.log("f:", exports)
