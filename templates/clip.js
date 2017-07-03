@@ -1,30 +1,39 @@
 ///
 
-var clip = {}
-var images = {}
-var ss = {}
+//--------------------
+return  {
+    getStage: function() { return exportRoot.getStage(); },
+    getLibrary: function() { return lib; },
+    getSpriteSheet: function() { return ss; },
+    getImages: function() { return img; }
+};
+}
 
-flash(clip, images, createjs, ss, {})
+var comp = flash(createjs, {})
 
 function init(handleComplete) {
     var loader = new createjs.LoadQueue(false);
-
+    var clip=comp.getLibrary();
     loader.installPlugin(createjs.Sound);
-
     loader.addEventListener("fileload", handleFileLoad);
     loader.addEventListener("complete", handleComplete);
     loader.loadManifest(clip.properties.manifest);
 }
+
+
 function handleFileLoad(evt) {
+    var images=comp.getImages();
     if (evt.item.type == "image") {
         images[evt.item.id] = evt.result;
     }
 }
 
+
 function addCentered(o, handleComplete) {
     init(
         function (evt) {
-
+            var clip=comp.getLibrary();
+            var ss=comp.getSpriteSheet();
             var queue = evt.target;
             var ssMetadata = clip.ssMetadata;
             for (i = 0; i < ssMetadata.length; i++) {
@@ -128,10 +137,9 @@ function addCentered(o, handleComplete) {
         }
     )
 }
-
 if (!window.clips) window.clips  = {}
 
 window.clips.%clpiname% = {
-    source: clip,
+    lib: ()=>comp.getLibrary(),
     addCentered: addCentered
 }

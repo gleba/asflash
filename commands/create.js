@@ -24,7 +24,7 @@ module.exports.run = (target, file) => {
     let i = data.length
     let j = 0
 
-    while (j < 2) {
+    while (j < 4) {
         i--
         if (data.charAt(i) == "\n") {
             j++
@@ -33,10 +33,9 @@ module.exports.run = (target, file) => {
 
     let result = data.slice(1, i)
     let template = fs.readFileSync(path.join(maindir, "templates", "clip.js")) + ""
-     template = template.replace("%clpiname%",cap(file).split(".")[0])
-    result = "var flash = " + result + "}"
+    template = template.replace("%clpiname%", cap(file).split(".")[0])
+    result = "var flash = " + result + template
 
-    result += template
     fs.writeFileSync(path.join(projectDir, "clips", file), result, 'utf8');
     console.log("exported:", file)
 }
@@ -52,7 +51,7 @@ module.exports.generate = () => {
         }
     )
     let exports = clips.map(f => `${cap(f)} : Gfx`)
-    console.log(exports)
+    //console.log(exports)
 
 
     //template += exports.join("\n")
