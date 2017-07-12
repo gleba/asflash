@@ -140,6 +140,24 @@ function addCentered(o, handleComplete) {
 if (!window.clips) window.clips  = {}
 
 window.clips.%clpiname% = {
-    lib: ()=>comp.getLibrary(),
+    initLib: function(ready) {
+        init(
+        function (evt) {
+            var clip = comp.getLibrary();
+            var ss = comp.getSpriteSheet();
+            var queue = evt.target;
+            var ssMetadata = clip.ssMetadata;
+            for (i = 0; i < ssMetadata.length; i++) {
+                ss[ssMetadata[i].name] = new createjs.SpriteSheet(
+                    {
+                        "images": [queue.getResult(ssMetadata[i].name)],
+                        "frames": ssMetadata[i].frames
+                    }
+                )
+            }
+
+            ready(clip)
+        }
+    )},
     addCentered: addCentered
 }
